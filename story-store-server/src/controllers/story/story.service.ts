@@ -3,11 +3,13 @@ import { Story } from '../../model';
 
 @Injectable()
 export class StoryService {
-    private data: Map<number, Story>;
+    private data: Story[];
 
     constructor() {
-        this.data = new Map();
-        this.data[1] = new Story(1, 'Test story');
+        this.data = [];
+        this.save(new Story(0, 'Test story'));
+        this.save(new Story(1, 'Test story 1'));
+        this.save(new Story(2, 'Test story 2'));
     }
 
     public get(id: number): Story {
@@ -15,13 +17,7 @@ export class StoryService {
     }
 
     public getAll(): Story[] {
-        const d: Story[] = [];
-
-        this.data.forEach((v) => {
-            d.push(v);
-        });
-
-        return d;
+        return this.data;
     }
 
     public save(story: Story) {
